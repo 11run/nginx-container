@@ -23,6 +23,23 @@ bash ./ssl/generate-key.sh
 
 ## nginxを起動する
 
+### 環境変数を設定する
+
+`server_name`をコンテナ起動時に環境変数から読み取って実行するために，
+`DEFAULT_SERVER_NAME`にサーバ名を定義する
+
+DEFAULT_SERVER_NAME=example.com
+
+### コンテナを起動する
+
+nginxコンテナをデーモンモードで起動する
+
 ```shell
 docker compose up -d nginx
+```
+
+### コンテナを停止する
+
+```shell
+docker compose down nginx
 ```

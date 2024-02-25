@@ -5,12 +5,12 @@ services:
     image: nginx:1.25.4-bookworm
     ports:
     - mode: ingress
-      host_ip: 127.0.0.1
+      # host_ip: 127.0.0.1
       target: 80
       published: "80"
       protocol: tcp
     - mode: ingress
-      host_ip: 127.0.0.1
+      # host_ip: 127.0.0.1
       target: 443
       published: "443"
       protocol: tcp
@@ -36,3 +36,13 @@ services:
       read_only: true
       bind:
         create_host_path: true
+    # Use a bind mount to provide the entrypoint script
+    - type: bind
+      source: ./reflect_envs.sh
+      target: /docker-entrypoint.d/100-reflect_envs.sh
+      read_only: tru
+      bind:
+        create_host_path: true
+    environment:
+      # Set the default server name
+      DEFAULT_SERVER_NAME: ${DEFAULT_SERVER_NAME:?}
