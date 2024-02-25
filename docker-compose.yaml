@@ -24,8 +24,8 @@ services:
         create_host_path: true
     # Use a bind mount to provide the configuration file
     - type: bind
-      source: ./conf.d
-      target: /etc/nginx/conf.d
+      source: ./templates
+      target: /etc/nginx/templates
       read_only: true
       bind:
         create_host_path: true
