@@ -40,7 +40,7 @@ services:
     - type: bind
       source: ./reflect_envs.sh
       target: /docker-entrypoint.d/100-reflect_envs.sh
-      read_only: tru
+      read_only: true
       bind:
         create_host_path: true
     environment:
