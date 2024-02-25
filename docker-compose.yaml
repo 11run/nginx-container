@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  nginx:
+    image: nginx:1.25.4-bookworm
+    ports:
+    - mode: ingress
+      host_ip: 127.0.0.1
+      target: 80
+      published: "80"
+      protocol: tcp
+    - mode: ingress
+      host_ip: 127.0.0.1
+      target: 443
+      published: "443"
+      protocol: tcp
+    volumes:
+    # Use a bind mount to provide the SSL certificate and key
+    - type: bind
+      source: ./ssl
+      target: /etc/nginx/ssl
+      read_only: true
+      bind:
+        create_host_path: true
+    # Use a bind mount to provide the configuration file
+    - type: bind
+      source: ./conf.d
+      target: /etc/nginx/conf.d
+      read_only: true
+      bind:
+        create_host_path: true
+    # Use a bind mount to provide the HTML content
+    - type: bind
+      source: ./html
+      target: /usr/share/nginx/html
+      read_only: true
+      bind:
+        create_host_path: true
